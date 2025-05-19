@@ -13,11 +13,11 @@
             padding: 20px;
         }
         h1 {
-            font-size: 1.6rem; /* 8강 부제목보다 약간 크게 */
+            font-size: 1.6rem;
             margin-bottom: 10px;
         }
         h2 {
-            font-size: 1.5rem; /* 부제목 크기 */
+            font-size: 1.5rem;
             margin: 20px 0;
         }
         .match {
@@ -33,7 +33,7 @@
             box-shadow: 0 2px 6px rgba(0,0,0,0.1);
         }
         .item img {
-            max-width: 450px; /* 이미지 1.5배 확대 */
+            max-width: 450px;
             width: 100%;
             height: auto;
             display: block;
@@ -54,7 +54,7 @@
             display: inline-block;
         }
         #final img#winner-img {
-            max-width: 450px; /* Final Winner 사진 확대 */
+            max-width: 450px;
             width: 100%;
             height: auto;
             border-radius: 8px;
@@ -63,7 +63,7 @@
             position: absolute;
             width: 200px;
             left: 50%;
-            top: 70%; /* 사진 아래에서 30% 겹침 */
+            top: 70%;
             transform: translate(-50%, -50%);
         }
         #final .winner-name {
@@ -71,7 +71,7 @@
             margin-top: 20px;
         }
         #final .congrats {
-            font-size: 0.72rem; /* 기존 1.2rem의 60% */
+            font-size: 0.72rem;
             font-weight: bold;
             margin-top: 10px;
         }
@@ -83,12 +83,12 @@
 
     <div class="match" id="match-container">
         <div class="item" id="item1">
-            <img src="" alt="">
-            <p id="name1"></p>
+            <img src="images/participant1.jpg" alt="">
+            <p>A</p>
         </div>
         <div class="item" id="item2">
-            <img src="" alt="">
-            <p id="name2"></p>
+            <img src="images/participant2.jpg" alt="">
+            <p>B</p>
         </div>
     </div>
 
@@ -103,22 +103,10 @@
 
     <script>
         const initialItems = [
-            { name: 'Style Name 1', img: 'images/participant1.jpg' },
-            { name: 'Style Name 2', img: 'images/participant2.jpg' },
-            { name: 'Style Name 3', img: 'images/participant3.jpg' },
-            { name: 'Style Name 4', img: 'images/participant4.jpg' },
-            { name: 'Style Name 5', img: 'images/participant5.jpg' },
-            { name: 'Style Name 6', img: 'images/participant6.jpg' },
-            { name: 'Style Name 7', img: 'images/participant7.jpg' },
-            { name: 'Style Name 8', img: 'images/participant8.jpg' },
-            { name: 'Style Name 9', img: 'images/participant9.jpg' },
-            { name: 'Style Name 10', img: 'images/participant10.jpg' },
-            { name: 'Style Name 11', img: 'images/participant11.jpg' },
-            { name: 'Style Name 12', img: 'images/participant12.jpg' },
-            { name: 'Style Name 13', img: 'images/participant13.jpg' },
-            { name: 'Style Name 14', img: 'images/participant14.jpg' },
-            { name: 'Style Name 15', img: 'images/participant15.jpg' },
-            { name: 'Style Name 16', img: 'images/participant16.jpg' }
+            { img: 'images/participant1.jpg' },
+            { img: 'images/participant2.jpg' },
+            /* ... participant3~participant16 */
+            { img: 'images/participant16.jpg' }
         ];
 
         let roundCount = initialItems.length;
@@ -129,8 +117,6 @@
         const titleEl = document.getElementById('match-title');
         const img1 = document.querySelector('#item1 img');
         const img2 = document.querySelector('#item2 img');
-        const name1 = document.getElementById('name1');
-        const name2 = document.getElementById('name2');
         const matchContainer = document.getElementById('match-container');
         const finalSection = document.getElementById('final');
         const winnerImg = document.getElementById('winner-img');
@@ -146,18 +132,16 @@
                 matchContainer.style.display = 'none';
                 finalSection.style.display = 'block';
                 winnerImg.src = items[0].img;
-                finalName.textContent = `Final Winner: ${items[0].name}`;
+                finalName.textContent = `Final Winner`;
                 return;
             }
             updateTitle();
-            const a = items[matchIndex * 2];
-            const b = items[matchIndex * 2 + 1];
-            img1.src = a.img; name1.textContent = a.name;
-            img2.src = b.img; name2.textContent = b.name;
+            img1.src = items[matchIndex * 2].img;
+            img2.src = items[matchIndex * 2 + 1].img;
         }
 
-        function select(winner) {
-            nextRound.push(winner);
+        function select(winnerImg) {
+            nextRound.push(winnerImg);
             matchIndex++;
             if (matchIndex >= roundCount / 2) {
                 items = nextRound.slice();
@@ -175,3 +159,4 @@
     </script>
 </body>
 </html>
+
