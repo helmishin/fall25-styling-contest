@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+html_content = """<!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
@@ -12,9 +12,19 @@
             margin: 0;
             padding: 20px;
         }
-        h1 { font-size: 2.5rem; margin-bottom: 10px; }
-        h2 { font-size: 1.5rem; margin: 20px 0; }
-        .match { display: flex; justify-content: center; gap: 40px; }
+        h1 {
+            font-size: 1.8rem; /* 제목 크기 축소 */
+            margin-bottom: 10px;
+        }
+        h2 {
+            font-size: 1.5rem;
+            margin: 20px 0;
+        }
+        .match {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+        }
         .item {
             cursor: pointer;
             background: #fff;
@@ -23,112 +33,115 @@
             box-shadow: 0 2px 6px rgba(0,0,0,0.1);
         }
         .item img {
-            max-width: 200px;
+            max-width: 300px; /* 이미지 크기 확대 */
+            width: 100%;
+            height: auto;
             display: block;
             margin: 0 auto;
             border-radius: 8px;
         }
-        .item p { margin: 10px 0 0; font-size: 1rem; }
+        .item p {
+            margin: 10px 0 0;
+            font-size: 1rem;
+        }
         #final {
             display: none;
-            margin-top: 30px;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
+            text-align: center;
+            margin-top: 40px;
         }
-        #final img.trophy {
-            width: 150px;
-        }
-        #final img.winner {
+        #final .trophy {
             max-width: 200px;
-            border-radius: 8px;
+            display: block;
+            margin: 0 auto 20px;
         }
-        #final p {
+        #final img#winner-img {
+            max-width: 300px; /* Final Winner 사진 확대 */
+            width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto 20px;
+        }
+        #final .winner-name {
             font-size: 1.5rem;
-            margin: 0;
+            margin-bottom: 10px;
+        }
+        #final .congrats {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
     <h1>Fall 25 Styling Contest</h1>
-    <h2 id="round-title">8강 - Match 1</h2>
+    <h2 id="match-title">16강 - Match 1</h2>
 
-    <div class="match" id="match-area">
+    <div class="match" id="match-container">
         <div class="item" id="item1">
-            <img src="images/participant1.jpg" alt="">
+            <img src="" alt="">
             <p id="name1"></p>
         </div>
         <div class="item" id="item2">
-            <img src="images/participant2.jpg" alt="">
+            <img src="" alt="">
             <p id="name2"></p>
         </div>
     </div>
 
     <div id="final">
         <img class="trophy" src="images/trophy.png" alt="Trophy">
-        <img class="winner" id="winner-img" src="" alt="Winner">
-        <p id="winner-name"></p>
-        <p id="congrats">Congratulations!</p>
+        <img id="winner-img" src="" alt="Winner Image">
+        <div class="winner-name" id="final-name"></div>
+        <div class="congrats">Congratulations!</div>
     </div>
 
     <script>
         const initialItems = [
-            { name: '모노크롬 시크 1', img: 'images/participant1.jpg' },
-            { name: '모노크롬 시크 2', img: 'images/participant2.jpg' },
-            { name: '페미닌 캐주얼 1', img: 'images/participant3.jpg' },
-            { name: '페미닌 캐주얼 2', img: 'images/participant4.jpg' },
-            { name: '로맨틱 락 시크 1', img: 'images/participant5.jpg' },
-            { name: '로맨틱 락 시크 2', img: 'images/participant6.jpg' },
-            { name: '마린 캐주얼 1', img: 'images/participant7.jpg' },
-            { name: '마린 캐주얼 2', img: 'images/participant8.jpg' },
-            { name: 'Fall 25 패턴 스타일링 1', img: 'images/participant9.jpg' },
-            { name: 'Fall 25 패턴 스타일링 2', img: 'images/participant10.jpg' },
-            { name: '엘레간트 클래식 1', img: 'images/participant11.jpg' },
-            { name: '엘레간트 클래식 2', img: 'images/participant12.jpg' },
-            { name: '프레피 마린 1', img: 'images/participant13.jpg' },
-            { name: '프레피 마린 2', img: 'images/participant14.jpg' },
-            { name: '하이-로우 드레싱 1', img: 'images/participant15.jpg' },
-            { name: '하이-로우 드레싱 2', img: 'images/participant16.jpg' }
+            { name: 'Style Name 1', img: 'images/participant1.jpg' },
+            { name: 'Style Name 2', img: 'images/participant2.jpg' },
+            { name: 'Style Name 3', img: 'images/participant3.jpg' },
+            { name: 'Style Name 4', img: 'images/participant4.jpg' },
+            { name: 'Style Name 5', img: 'images/participant5.jpg' },
+            { name: 'Style Name 6', img: 'images/participant6.jpg' },
+            { name: 'Style Name 7', img: 'images/participant7.jpg' },
+            { name: 'Style Name 8', img: 'images/participant8.jpg' },
+            { name: 'Style Name 9', img: 'images/participant9.jpg' },
+            { name: 'Style Name 10', img: 'images/participant10.jpg' },
+            { name: 'Style Name 11', img: 'images/participant11.jpg' },
+            { name: 'Style Name 12', img: 'images/participant12.jpg' },
+            { name: 'Style Name 13', img: 'images/participant13.jpg' },
+            { name: 'Style Name 14', img: 'images/participant14.jpg' },
+            { name: 'Style Name 15', img: 'images/participant15.jpg' },
+            { name: 'Style Name 16', img: 'images/participant16.jpg' }
         ];
 
-        let items = [...initialItems];
+        let roundCount = initialItems.length;
+        let items = initialItems.slice();
         let nextRound = [];
         let matchIndex = 0;
 
-        const roundTitleEl = document.getElementById('round-title');
+        const titleEl = document.getElementById('match-title');
         const img1 = document.querySelector('#item1 img');
         const img2 = document.querySelector('#item2 img');
         const name1 = document.getElementById('name1');
         const name2 = document.getElementById('name2');
-        const matchArea = document.getElementById('match-area');
-        const finalEl = document.getElementById('final');
-        const winnerNameEl = document.getElementById('winner-name');
-        const winnerImgEl = document.getElementById('winner-img');
-        const congratsEl = document.getElementById('congrats');
-
-        const roundNames = {16: '8강', 8: '4강', 4: '준결승', 2: '결승'};
+        const matchContainer = document.getElementById('match-container');
+        const finalSection = document.getElementById('final');
+        const winnerImg = document.getElementById('winner-img');
+        const finalName = document.getElementById('final-name');
 
         function updateTitle() {
-            const count = items.length;
-            if (count > 1) {
-                const round = roundNames[count];
-                roundTitleEl.textContent = `${round} - Match ${matchIndex + 1}`;
-            }
+            const labels = {16: '16강', 8: '8강', 4: '4강', 2: '결승'};
+            titleEl.textContent = `${labels[roundCount]} - Match ${matchIndex + 1}`;
         }
 
         function showMatch() {
-            if (items.length === 1) {
-                matchArea.style.display = 'none';
-                roundTitleEl.style.display = 'none';
-                finalEl.style.display = 'flex';
-                winnerImgEl.src = items[0].img;
-                winnerNameEl.textContent = `Final Winner: ${items[0].name}`;
-                congratsEl.style.display = 'block';
+            if (roundCount === 1) {
+                matchContainer.style.display = 'none';
+                finalSection.style.display = 'block';
+                winnerImg.src = items[0].img;
+                finalName.textContent = `Final Winner: ${items[0].name}`;
                 return;
             }
-            // 경기가 진행 중일 때 트로피와 축하 메시지 숨김
-            finalEl.style.display = 'none';
-
             updateTitle();
             const a = items[matchIndex * 2];
             const b = items[matchIndex * 2 + 1];
@@ -136,21 +149,20 @@
             img2.src = b.img; name2.textContent = b.name;
         }
 
-        function selectItem(idx) {
-            const a = items[matchIndex * 2];
-            const b = items[matchIndex * 2 + 1];
-            nextRound.push(idx === 1 ? a : b);
+        function select(winner) {
+            nextRound.push(winner);
             matchIndex++;
-            if (matchIndex >= items.length / 2) {
-                items = [...nextRound];
+            if (matchIndex >= roundCount / 2) {
+                items = nextRound.slice();
                 nextRound = [];
                 matchIndex = 0;
+                roundCount = items.length;
             }
             showMatch();
         }
 
-        document.getElementById('item1').addEventListener('click', () => selectItem(1));
-        document.getElementById('item2').addEventListener('click', () => selectItem(2));
+        document.getElementById('item1').addEventListener('click', () => select(items[matchIndex * 2]));
+        document.getElementById('item2').addEventListener('click', () => select(items[matchIndex * 2 + 1]));
 
         showMatch();
     </script>
