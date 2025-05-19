@@ -1,162 +1,106 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fall 25 Styling Contest</title>
-    <style>
-        body {
-            font-family: 'Century Gothic', Arial, sans-serif;
-            text-align: center;
-            background-color: #f9f9f9;
-            margin: 0;
-            padding: 20px;
-        }
-        h1 {
-            font-size: 1.6rem;
-            margin-bottom: 10px;
-        }
-        h2 {
-            font-size: 1.5rem;
-            margin: 20px 0;
-        }
-        .match {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-        }
-        .item {
-            cursor: pointer;
-            background: #fff;
-            padding: 10px;
-            border-radius: 8px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-        }
-        .item img {
-            max-width: 450px;
-            width: 100%;
-            height: auto;
-            display: block;
-            margin: 0 auto;
-            border-radius: 8px;
-        }
-        .item p {
-            margin: 10px 0 0;
-            font-size: 1rem;
-        }
-        #final {
-            display: none;
-            text-align: center;
-            margin-top: 40px;
-        }
-        #final .winner-container {
-            position: relative;
-            display: inline-block;
-        }
-        #final img#winner-img {
-            max-width: 450px;
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
-        }
-        #final .trophy {
-            position: absolute;
-            width: 200px;
-            left: 50%;
-            top: 70%;
-            transform: translate(-50%, -50%);
-        }
-        #final .winner-name {
-            font-size: 1.5rem;
-            margin-top: 20px;
-        }
-        #final .congrats {
-            font-size: 0.72rem;
-            font-weight: bold;
-            margin-top: 10px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fall 25 Styling Contest</title>
+  <style>
+    body { font-family:'Century Gothic',sans-serif; text-align:center; background:#f9f9f9; margin:0; padding:20px }
+    h1 { font-size:1.6rem; margin-bottom:10px }
+    h2 { font-size:1.5rem; margin:20px 0 }
+    .match { display:flex; justify-content:center; gap:40px }
+    .item { cursor:pointer; background:#fff; padding:10px; border-radius:8px; box-shadow:0 2px 6px rgba(0,0,0,0.1) }
+    .item img { max-width:450px; width:100%; height:auto; border-radius:8px }
+    .item p { margin:10px 0 0; font-size:1rem }
+    #final { display:none; text-align:center; margin-top:40px }
+    #final .winner-container { position:relative; display:inline-block }
+    #final img#winner-img { max-width:450px; width:100%; height:auto; border-radius:8px }
+    #final .trophy { position:absolute; width:200px; left:50%; top:70%; transform:translate(-50%,-50%) }
+    #final .winner-name { font-size:1.5rem; margin-top:20px }
+    #final .congrats { font-size:0.72rem; font-weight:bold; margin-top:10px }
+  </style>
 </head>
 <body>
-    <h1>Fall 25 Styling Contest</h1>
-    <h2 id="match-title">16강 - Match 1</h2>
+  <h1>Fall 25 Styling Contest</h1>
+  <h2 id="match-title">8강 - Match 1</h2>
 
-    <div class="match" id="match-container">
-        <div class="item" id="item1">
-            <img src="images/participant1.jpg" alt="">
-            <p>A</p>
-        </div>
-        <div class="item" id="item2">
-            <img src="images/participant2.jpg" alt="">
-            <p>B</p>
-        </div>
+  <div class="match" id="match-container">
+    <div class="item" id="item1">
+      <img src="images/participant1.jpg" alt="">
+      <p>A</p>
     </div>
-
-    <div id="final">
-        <div class="winner-container">
-            <img id="winner-img" src="" alt="Winner Image">
-            <img class="trophy" src="images/trophy.png" alt="Trophy">
-        </div>
-        <div class="winner-name" id="final-name"></div>
-        <div class="congrats">Congratulations!</div>
+    <div class="item" id="item2">
+      <img src="images/participant2.jpg" alt="">
+      <p>B</p>
     </div>
+  </div>
 
-    <script>
-        const initialItems = [
-            { img: 'images/participant1.jpg' },
-            { img: 'images/participant2.jpg' },
-            /* ... participant3~participant16 */
-            { img: 'images/participant16.jpg' }
-        ];
+  <div id="final">
+    <div class="winner-container">
+      <img id="winner-img" src="" alt="Winner Image">
+      <img class="trophy" src="images/trophy.png" alt="Trophy">
+    </div>
+    <div class="winner-name" id="final-name"></div>
+    <div class="congrats">Congratulations!</div>
+  </div>
 
-        let roundCount = initialItems.length;
-        let items = initialItems.slice();
-        let nextRound = [];
-        let matchIndex = 0;
+  <script>
+    const initialItems = [
+      { img:'images/participant1.jpg' },
+      { img:'images/participant2.jpg' },
+      /* … participant3~participant16 … */
+      { img:'images/participant16.jpg' }
+    ];
 
-        const titleEl = document.getElementById('match-title');
-        const img1 = document.querySelector('#item1 img');
-        const img2 = document.querySelector('#item2 img');
-        const matchContainer = document.getElementById('match-container');
-        const finalSection = document.getElementById('final');
-        const winnerImg = document.getElementById('winner-img');
-        const finalName = document.getElementById('final-name');
+    // ◀ 여기 바뀐 부분
+    let roundCount = initialItems.length / 2; // 8강부터 시작
+    let items = initialItems.slice();
+    let nextRound = [];
+    let matchIndex = 0;
 
-        function updateTitle() {
-            const labels = {16: '16강', 8: '8강', 4: '4강', 2: '결승'};
-            titleEl.textContent = `${labels[roundCount]} - Match ${matchIndex + 1}`;
-        }
+    const titleEl = document.getElementById('match-title');
+    const img1 = document.querySelector('#item1 img');
+    const img2 = document.querySelector('#item2 img');
+    const matchContainer = document.getElementById('match-container');
+    const finalSection = document.getElementById('final');
+    const winnerImg = document.getElementById('winner-img');
+    const finalName = document.getElementById('final-name');
 
-        function showMatch() {
-            if (roundCount === 1) {
-                matchContainer.style.display = 'none';
-                finalSection.style.display = 'block';
-                winnerImg.src = items[0].img;
-                finalName.textContent = `Final Winner`;
-                return;
-            }
-            updateTitle();
-            img1.src = items[matchIndex * 2].img;
-            img2.src = items[matchIndex * 2 + 1].img;
-        }
+    function updateTitle() {
+      const labels = { 8:'8강', 4:'4강', 2:'결승' };
+      titleEl.textContent = `${labels[roundCount]} - Match ${matchIndex+1}`;
+    }
 
-        function select(winnerImg) {
-            nextRound.push(winnerImg);
-            matchIndex++;
-            if (matchIndex >= roundCount / 2) {
-                items = nextRound.slice();
-                nextRound = [];
-                matchIndex = 0;
-                roundCount = items.length;
-            }
-            showMatch();
-        }
+    function showMatch() {
+      if (roundCount === 1) {
+        matchContainer.style.display = 'none';
+        finalSection.style.display = 'block';
+        winnerImg.src = items[0].img;
+        finalName.textContent = `Final Winner`;
+        return;
+      }
+      updateTitle();
+      img1.src = items[matchIndex*2].img;
+      img2.src = items[matchIndex*2+1].img;
+    }
 
-        document.getElementById('item1').addEventListener('click', () => select(items[matchIndex * 2]));
-        document.getElementById('item2').addEventListener('click', () => select(items[matchIndex * 2 + 1]));
+    function select(winner) {
+      nextRound.push(winner);
+      matchIndex++;
+      if (matchIndex >= roundCount) {
+        items = nextRound.slice();
+        nextRound = [];
+        matchIndex = 0;
+        roundCount = items.length / 2;
+      }
+      showMatch();
+    }
 
-        showMatch();
-    </script>
+    document.getElementById('item1').addEventListener('click', () => select(items[matchIndex*2]));
+    document.getElementById('item2').addEventListener('click', () => select(items[matchIndex*2+1]));
+
+    showMatch();
+  </script>
 </body>
 </html>
 
