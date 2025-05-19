@@ -1,4 +1,4 @@
-html_content = """<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
@@ -13,11 +13,11 @@ html_content = """<!DOCTYPE html>
             padding: 20px;
         }
         h1 {
-            font-size: 1.8rem; /* 제목 크기 축소 */
+            font-size: 1.6rem; /* 8강 부제목보다 약간 크게 */
             margin-bottom: 10px;
         }
         h2 {
-            font-size: 1.5rem;
+            font-size: 1.5rem; /* 부제목 크기 */
             margin: 20px 0;
         }
         .match {
@@ -33,7 +33,7 @@ html_content = """<!DOCTYPE html>
             box-shadow: 0 2px 6px rgba(0,0,0,0.1);
         }
         .item img {
-            max-width: 300px; /* 이미지 크기 확대 */
+            max-width: 450px; /* 이미지 1.5배 확대 */
             width: 100%;
             height: auto;
             display: block;
@@ -49,24 +49,29 @@ html_content = """<!DOCTYPE html>
             text-align: center;
             margin-top: 40px;
         }
-        #final .trophy {
-            max-width: 200px;
-            display: block;
-            margin: 0 auto 20px;
+        #final .winner-container {
+            position: relative;
+            display: inline-block;
         }
         #final img#winner-img {
-            max-width: 300px; /* Final Winner 사진 확대 */
+            max-width: 450px; /* Final Winner 사진 확대 */
             width: 100%;
             height: auto;
-            display: block;
-            margin: 0 auto 20px;
+            border-radius: 8px;
+        }
+        #final .trophy {
+            position: absolute;
+            width: 200px;
+            left: 50%;
+            top: 70%; /* 사진 아래에서 30% 겹침 */
+            transform: translate(-50%, -50%);
         }
         #final .winner-name {
             font-size: 1.5rem;
-            margin-bottom: 10px;
+            margin-top: 20px;
         }
         #final .congrats {
-            font-size: 1.2rem;
+            font-size: 0.72rem; /* 기존 1.2rem의 60% */
             font-weight: bold;
             margin-top: 10px;
         }
@@ -88,8 +93,10 @@ html_content = """<!DOCTYPE html>
     </div>
 
     <div id="final">
-        <img class="trophy" src="images/trophy.png" alt="Trophy">
-        <img id="winner-img" src="" alt="Winner Image">
+        <div class="winner-container">
+            <img id="winner-img" src="" alt="Winner Image">
+            <img class="trophy" src="images/trophy.png" alt="Trophy">
+        </div>
         <div class="winner-name" id="final-name"></div>
         <div class="congrats">Congratulations!</div>
     </div>
