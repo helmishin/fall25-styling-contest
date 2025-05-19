@@ -2,22 +2,46 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fall 25 Styling Contest</title>
   <style>
-    body { font-family:'Century Gothic',sans-serif; text-align:center; background:#f9f9f9; margin:0; padding:20px }
-    h1 { font-size:1.6rem; margin-bottom:10px }
-    h2 { font-size:1.5rem; margin:20px 0 }
-    .match { display:flex; justify-content:center; gap:40px }
-    .item { cursor:pointer; background:#fff; padding:10px; border-radius:8px; box-shadow:0 2px 6px rgba(0,0,0,0.1) }
-    .item img { max-width:450px; width:100%; height:auto; border-radius:8px }
-    .item p { margin:10px 0 0; font-size:1rem }
-    #final { display:none; text-align:center; margin-top:40px }
-    #final .winner-container { position:relative; display:inline-block }
-    #final img#winner-img { max-width:450px; width:100%; height:auto; border-radius:8px }
-    #final .trophy { position:absolute; width:200px; left:50%; top:70%; transform:translate(-50%,-50%) }
-    #final .winner-name { font-size:1.5rem; margin-top:20px }
-    #final .congrats { font-size:0.72rem; font-weight:bold; margin-top:10px }
+    body {
+      font-family: 'Century Gothic', Arial, sans-serif;
+      text-align: center;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 { font-size: 1.6rem; margin-bottom: 10px; }
+    h2 { font-size: 1.5rem; margin: 20px 0; }
+    .match { display: flex; justify-content: center; gap: 40px; }
+    .item {
+      cursor: pointer;
+      background: #fff;
+      padding: 10px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .item img {
+      max-width: 450px; width: 100%; height: auto;
+      display: block; margin: 0 auto; border-radius: 8px;
+    }
+    .item p { margin: 10px 0 0; font-size: 1rem; }
+    #final { display: none; text-align: center; margin-top: 40px; }
+    #final .winner-container {
+      position: relative; display: inline-block;
+    }
+    #final img#winner-img {
+      max-width: 450px; width: 100%; height: auto;
+      border-radius: 8px;
+    }
+    #final .trophy {
+      position: absolute; width: 200px;
+      left: 50%; top: 70%;
+      transform: translate(-50%, -50%);
+    }
+    #final .winner-name { font-size: 1.5rem; margin-top: 20px; }
+    #final .congrats { font-size: 0.72rem; font-weight: bold; margin-top: 10px; }
   </style>
 </head>
 <body>
@@ -26,18 +50,18 @@
 
   <div class="match" id="match-container">
     <div class="item" id="item1">
-      <img src="images/participant1.jpg" alt="">
+      <img src="" alt="A">
       <p>A</p>
     </div>
     <div class="item" id="item2">
-      <img src="images/participant2.jpg" alt="">
+      <img src="" alt="B">
       <p>B</p>
     </div>
   </div>
 
   <div id="final">
     <div class="winner-container">
-      <img id="winner-img" src="" alt="Winner Image">
+      <img id="winner-img" src="" alt="Winner">
       <img class="trophy" src="images/trophy.png" alt="Trophy">
     </div>
     <div class="winner-name" id="final-name"></div>
@@ -45,15 +69,28 @@
   </div>
 
   <script>
+    // 16장의 이미지를 A/B 페어로 진행
     const initialItems = [
-      { img:'images/participant1.jpg' },
-      { img:'images/participant2.jpg' },
-      /* … participant3~participant16 … */
-      { img:'images/participant16.jpg' }
+      { img: 'images/participant1.jpg' },
+      { img: 'images/participant2.jpg' },
+      { img: 'images/participant3.jpg' },
+      { img: 'images/participant4.jpg' },
+      { img: 'images/participant5.jpg' },
+      { img: 'images/participant6.jpg' },
+      { img: 'images/participant7.jpg' },
+      { img: 'images/participant8.jpg' },
+      { img: 'images/participant9.jpg' },
+      { img: 'images/participant10.jpg' },
+      { img: 'images/participant11.jpg' },
+      { img: 'images/participant12.jpg' },
+      { img: 'images/participant13.jpg' },
+      { img: 'images/participant14.jpg' },
+      { img: 'images/participant15.jpg' },
+      { img: 'images/participant16.jpg' }
     ];
 
-    // ◀ 여기 바뀐 부분
-    let roundCount = initialItems.length / 2; // 8강부터 시작
+    // ▶ 핵심 수정: matches(경기 수)로 관리
+    let matches = initialItems.length / 2;  // 처음 8강
     let items = initialItems.slice();
     let nextRound = [];
     let matchIndex = 0;
@@ -67,12 +104,13 @@
     const finalName = document.getElementById('final-name');
 
     function updateTitle() {
-      const labels = { 8:'8강', 4:'4강', 2:'결승' };
-      titleEl.textContent = `${labels[roundCount]} - Match ${matchIndex+1}`;
+      const labels = { 8: '8강', 4: '4강', 2: '결승', 1: 'Final' };
+      titleEl.textContent = `${labels[matches]} - Match ${matchIndex + 1}`;
     }
 
     function showMatch() {
-      if (roundCount === 1) {
+      if (matches === 1) {
+        // Final Winner
         matchContainer.style.display = 'none';
         finalSection.style.display = 'block';
         winnerImg.src = items[0].img;
@@ -80,27 +118,31 @@
         return;
       }
       updateTitle();
-      img1.src = items[matchIndex*2].img;
-      img2.src = items[matchIndex*2+1].img;
+      img1.src = items[matchIndex * 2].img;
+      img2.src = items[matchIndex * 2 + 1].img;
     }
 
-    function select(winner) {
-      nextRound.push(winner);
+    function select(winnerItem) {
+      nextRound.push(winnerItem);
       matchIndex++;
-      if (matchIndex >= roundCount) {
+      if (matchIndex >= matches) {
+        // 다음 라운드 준비
         items = nextRound.slice();
         nextRound = [];
         matchIndex = 0;
-        roundCount = items.length / 2;
+        matches = items.length / 2;
       }
       showMatch();
     }
 
-    document.getElementById('item1').addEventListener('click', () => select(items[matchIndex*2]));
-    document.getElementById('item2').addEventListener('click', () => select(items[matchIndex*2+1]));
+    document.getElementById('item1')
+      .addEventListener('click', () => select(items[matchIndex * 2]));
+    document.getElementById('item2')
+      .addEventListener('click', () => select(items[matchIndex * 2 + 1]));
 
     showMatch();
   </script>
 </body>
 </html>
+
 
