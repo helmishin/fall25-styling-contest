@@ -1,150 +1,48 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fall 25 Styling Contest</title>
-  <style>
-    body {
-      font-family: 'Century Gothic', Arial, sans-serif;
-      text-align: center;
-      background-color: #f9f9f9;
-      margin: 0;
-      padding: 20px;
-    }
-    h1 { font-size: 1.6rem; margin-bottom: 10px; }
-    h2 { font-size: 1.5rem; margin: 20px 0; }
-    .match { display: flex; justify-content: center; gap: 40px; }
-    .item {
-      cursor: pointer;
-      background: #fff;
-      padding: 10px;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    }
-    .item img {
-      max-width: 450px; width: 100%; height: auto;
-      display: block; margin: 0 auto; border-radius: 8px;
-    }
-    .item p { margin: 10px 0 0; font-size: 1rem; }
-    #final { display: none; text-align: center; margin-top: 40px; }
-    #final .winner-container {
-      position: relative; display: inline-block;
-    }
-    #final img#winner-img {
-      max-width: 450px; width: 100%; height: auto;
-      border-radius: 8px;
-    }
-    #final .trophy {
+<style>
+  body { /* 생략… */ }
+
+  /* … 생략 … */
+
+  .match {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+  }
+  .item {
+    cursor: pointer;
+    background: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  }
+  .match .item img {
+    width: 450px;        /* 고정 너비 */
+    height: 300px;       /* 고정 높이 */
+    object-fit: cover;   /* 비율 유지하며 잘라서 채우기 */
+    display: block;
+    margin: 0 auto;
+    border-radius: 8px;
+  }
+  .item p { /* 생략… */ }
+
+  /* Final 영역 스타일 (트로피 우하단) */
+  #final { position: relative; /* 생략… */ }
+  #final .winner-container { display: inline-block; }
+  #final img#winner-img {
+    width: 450px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 8px;
+    display: block;
+    margin: 0 auto;
+  }
+  #final .trophy {
     position: absolute;
     width: 200px;
-    right: 20px;    /* 오른쪽에서 20px 떨어짐 */
-    bottom: 20px;   /* 하단에서 20px 떨어짐 */
-    transform: none;/* 겹침 제거 */
-    }
-    #final .winner-name { font-size: 1.5rem; margin-top: 20px; }
-    #final .congrats { font-size: 0.72rem; font-weight: bold; margin-top: 10px; }
-  </style>
-</head>
-<body>
-  <h1>Fall 25 Styling Contest</h1>
-  <h2 id="match-title">8강 - Match 1</h2>
-
-  <div class="match" id="match-container">
-    <div class="item" id="item1">
-      <img src="" alt="A">
-      <p>A</p>
-    </div>
-    <div class="item" id="item2">
-      <img src="" alt="B">
-      <p>B</p>
-    </div>
-  </div>
-
-  <div id="final">
-    <div class="winner-container">
-      <img id="winner-img" src="" alt="Winner">
-      <img class="trophy" src="images/trophy.png" alt="Trophy">
-    </div>
-    <div class="winner-name" id="final-name"></div>
-    <div class="congrats">Congratulations!</div>
-  </div>
-
-  <script>
-    // 16장의 이미지를 A/B 페어로 진행
-    const initialItems = [
-      { img: 'images/participant1.png' },
-      { img: 'images/participant2.png' },
-      { img: 'images/participant3.png' },
-      { img: 'images/participant4.png' },
-      { img: 'images/participant5.png' },
-      { img: 'images/participant6.png' },
-      { img: 'images/participant7.png' },
-      { img: 'images/participant8.png' },
-      { img: 'images/participant9.png' },
-      { img: 'images/participant10.png' },
-      { img: 'images/participant11.png' },
-      { img: 'images/participant12.png' },
-      { img: 'images/participant13.png' },
-      { img: 'images/participant14.png' },
-      { img: 'images/participant15.png' },
-      { img: 'images/participant16.png' }
-    ];
-
-    // ▶ 핵심 수정: matches(경기 수)로 관리
-    let matches = initialItems.length / 2;  // 처음 8강
-    let items = initialItems.slice();
-    let nextRound = [];
-    let matchIndex = 0;
-
-    const titleEl = document.getElementById('match-title');
-    const img1 = document.querySelector('#item1 img');
-    const img2 = document.querySelector('#item2 img');
-    const matchContainer = document.getElementById('match-container');
-    const finalSection = document.getElementById('final');
-    const winnerImg = document.getElementById('winner-img');
-    const finalName = document.getElementById('final-name');
-
-    function updateTitle() {
-      const labels = { 8: '8강', 4: '4강', 2: '결승', 1: 'Final' };
-      titleEl.textContent = `${labels[matches]} - Match ${matchIndex + 1}`;
-    }
-
-    function showMatch() {
-      if (matches === 1) {
-        // Final Winner
-        matchContainer.style.display = 'none';
-        finalSection.style.display = 'block';
-        winnerImg.src = items[0].img;
-        finalName.textContent = `Final Winner`;
-        return;
-      }
-      updateTitle();
-      img1.src = items[matchIndex * 2].img;
-      img2.src = items[matchIndex * 2 + 1].img;
-    }
-
-    function select(winnerItem) {
-      nextRound.push(winnerItem);
-      matchIndex++;
-      if (matchIndex >= matches) {
-        // 다음 라운드 준비
-        items = nextRound.slice();
-        nextRound = [];
-        matchIndex = 0;
-        matches = items.length / 2;
-      }
-      showMatch();
-    }
-
-    document.getElementById('item1')
-      .addEventListener('click', () => select(items[matchIndex * 2]));
-    document.getElementById('item2')
-      .addEventListener('click', () => select(items[matchIndex * 2 + 1]));
-
-    showMatch();
-  </script>
-</body>
-</html>
-
+    right: 20px;
+    bottom: 20px;
+    transform: none;
+  }
+  /* 나머지 스타일 그대로 */
+</style>
 
