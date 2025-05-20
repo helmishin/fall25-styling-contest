@@ -38,7 +38,7 @@
     #final .trophy {
       position: absolute;
       width: 200px;
-      right: 20px;    /* 오른쪽 아래에 고정 */
+      right: 20px;
       bottom: 20px;
       transform: none;
     }
@@ -48,7 +48,7 @@
 </head>
 <body>
   <h1>Fall 25 Styling Contest</h1>
-  <h2 id="match-title">8강 - Match 1</h2>
+  <h2 id="match-title">16강 - Match 1</h2>
 
   <div class="match" id="match-container">
     <div class="item" id="item1">
@@ -67,44 +67,46 @@
       <img class="trophy" src="images/trophy.png" alt="Trophy">
     </div>
     <div class="winner-name" id="final-name"></div>
-    <div class="congrats">Congratulations!</div>
+    <div class="congrats">축하합니다!</div>
   </div>
 
   <script>
     const initialItems = [
-      { img: 'images/participant1.png' },
-      { img: 'images/participant2.png' },
-      { img: 'images/participant3.png' },
-      { img: 'images/participant4.png' },
-      { img: 'images/participant5.png' },
-      { img: 'images/participant6.png' },
-      { img: 'images/participant7.png' },
-      { img: 'images/participant8.png' },
-      { img: 'images/participant9.png' },
-      { img: 'images/participant10.png' },
-      { img: 'images/participant11.png' },
-      { img: 'images/participant12.png' },
-      { img: 'images/participant13.png' },
-      { img: 'images/participant14.png' },
-      { img: 'images/participant15.png' },
-      { img: 'images/participant16.png' }
+      { img: 'images/participant1.png', name: 'A' },
+      { img: 'images/participant2.png', name: 'B' },
+      { img: 'images/participant3.png', name: 'C' },
+      { img: 'images/participant4.png', name: 'D' },
+      { img: 'images/participant5.png', name: 'E' },
+      { img: 'images/participant6.png', name: 'F' },
+      { img: 'images/participant7.png', name: 'G' },
+      { img: 'images/participant8.png', name: 'H' },
+      { img: 'images/participant9.png', name: 'I' },
+      { img: 'images/participant10.png', name: 'J' },
+      { img: 'images/participant11.png', name: 'K' },
+      { img: 'images/participant12.png', name: 'L' },
+      { img: 'images/participant13.png', name: 'M' },
+      { img: 'images/participant14.png', name: 'N' },
+      { img: 'images/participant15.png', name: 'O' },
+      { img: 'images/participant16.png', name: 'P' }
     ];
 
-    let matches = initialItems.length / 2;  // 8강부터 시작
-    let items = initialItems.slice();
+    let matches = initialItems.length / 2;  // 16강부터 시작 (8 matches)
+    let items = [...initialItems];
     let nextRound = [];
     let matchIndex = 0;
 
     const titleEl = document.getElementById('match-title');
     const img1 = document.querySelector('#item1 img');
     const img2 = document.querySelector('#item2 img');
+    const name1 = document.querySelector('#item1 p');
+    const name2 = document.querySelector('#item2 p');
     const matchContainer = document.getElementById('match-container');
     const finalSection = document.getElementById('final');
     const winnerImg = document.getElementById('winner-img');
     const finalName = document.getElementById('final-name');
 
     function updateTitle() {
-      const labels = { 8: '8강', 4: '4강', 2: '결승', 1: 'Final' };
+      const labels = { 8: '16강', 4: '8강', 2: '4강', 1: '결승' };
       titleEl.textContent = `${labels[matches]} - Match ${matchIndex + 1}`;
     }
 
@@ -113,19 +115,21 @@
         matchContainer.style.display = 'none';
         finalSection.style.display = 'block';
         winnerImg.src = items[0].img;
-        finalName.textContent = `Final Winner`;
+        finalName.textContent = items[0].name + ' 우승!';
         return;
       }
       updateTitle();
       img1.src = items[matchIndex * 2].img;
       img2.src = items[matchIndex * 2 + 1].img;
+      name1.textContent = items[matchIndex * 2].name;
+      name2.textContent = items[matchIndex * 2 + 1].name;
     }
 
     function select(winnerItem) {
       nextRound.push(winnerItem);
       matchIndex++;
       if (matchIndex >= matches) {
-        items = nextRound.slice();
+        items = [...nextRound];
         nextRound = [];
         matchIndex = 0;
         matches = items.length / 2;
