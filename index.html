@@ -105,7 +105,7 @@
 
     function updateTitle() {
       const labels = { 8: '8강', 4: '4강', 2: '결승', 1: 'Final' };
-      titleEl.textContent = ${labels[matches]} - Match ${matchIndex + 1};
+      titleEl.textContent = `${labels[matches]} - Match ${matchIndex + 1}`;
     }
 
     function showMatch() {
@@ -113,7 +113,7 @@
         matchContainer.style.display = 'none';
         finalSection.style.display = 'block';
         winnerImg.src = items[0].img;
-        finalName.textContent = Final Winner;
+        finalName.textContent = `Final Winner`;
         return;
       }
       updateTitle();
@@ -142,5 +142,6 @@
   </script>
 </body>
 </html>
+
 
 
