@@ -9,52 +9,41 @@
       font-family: 'Century Gothic', Arial, sans-serif;
       text-align: center;
       background-color: #f9f9f9;
-      margin: 0; padding: 20px;
+      margin: 0;
+      padding: 20px;
     }
     h1 { font-size: 1.6rem; margin-bottom: 10px; }
     h2 { font-size: 1.5rem; margin: 20px 0; }
-    .match {
-      display: flex; justify-content: center; gap: 40px;
-    }
+    .match { display: flex; justify-content: center; gap: 40px; }
     .item {
       cursor: pointer;
       background: #fff;
       padding: 10px;
       border-radius: 8px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      width: 460px; height: 310px;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
     }
     .item img {
-      max-width: 100%; max-height: 100%;
-      object-fit: contain; border-radius: 8px;
+      max-width: 450px; width: 100%; height: auto;
+      display: block; margin: 0 auto; border-radius: 8px;
     }
     .item p { margin: 10px 0 0; font-size: 1rem; }
-
-    /* Final Winner */
-    #final {
-      display: none; text-align: center; margin-top: 40px;
+    #final { display: none; text-align: center; margin-top: 40px; position: relative; }
+    #final .winner-container {
+      display: inline-block;
     }
     #final img#winner-img {
-      width: 460px; height: 310px;
-      object-fit: contain; border-radius: 8px;
-      display: block; margin: 0 auto;
+      max-width: 450px; width: 100%; height: auto;
+      border-radius: 8px;
     }
-    #final .winner-name {
-      display: inline-flex;
-      align-items: center;
-      font-size: 1.5rem;
-      margin-top: 20px;
+    #final .trophy {
+      position: absolute;
+      width: 200px;
+      right: 20px;    /* 오른쪽 아래에 고정 */
+      bottom: 20px;
+      transform: none;
     }
-    #final .winner-name img.trophy-small {
-      width: 24px;
-      height: 24px;
-      margin-left: 8px;
-    }
-    #final .congrats {
-      font-size: 0.72rem; font-weight: bold; margin-top: 10px;
-    }
+    #final .winner-name { font-size: 1.5rem; margin-top: 20px; }
+    #final .congrats { font-size: 0.72rem; font-weight: bold; margin-top: 10px; }
   </style>
 </head>
 <body>
@@ -73,11 +62,11 @@
   </div>
 
   <div id="final">
-    <img id="winner-img" src="" alt="Winner">
-    <div class="winner-name" id="final-name">
-      Final Winner
-      <img class="trophy-small" src="images/trophy.png" alt="Trophy">
+    <div class="winner-container">
+      <img id="winner-img" src="" alt="Winner">
+      <img class="trophy" src="images/trophy.png" alt="Trophy">
     </div>
+    <div class="winner-name" id="final-name"></div>
     <div class="congrats">Congratulations!</div>
   </div>
 
@@ -116,7 +105,7 @@
 
     function updateTitle() {
       const labels = { 8: '8강', 4: '4강', 2: '결승', 1: 'Final' };
-      titleEl.textContent = `${labels[matches]} - Match ${matchIndex + 1}`;
+      titleEl.textContent = ${labels[matches]} - Match ${matchIndex + 1};
     }
 
     function showMatch() {
@@ -124,7 +113,7 @@
         matchContainer.style.display = 'none';
         finalSection.style.display = 'block';
         winnerImg.src = items[0].img;
-        finalName.textContent = 'Final Winner';
+        finalName.textContent = Final Winner;
         return;
       }
       updateTitle();
