@@ -12,11 +12,11 @@
     .item { cursor: pointer; background: #fff; padding: 10px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
     .item img { max-width: 450px; width: 100%; height: auto; display: block; margin: 0 auto; border-radius: 8px; }
     .item p { margin: 10px 0 0; font-size: 1rem; font-weight: bold; }
-    #final { display: none; text-align: center; margin-top: 40px; position: relative; }
+    #final { display: none; text-align: center; margin-top: 40px; }
     #final .winner-container { display: inline-block; }
     #final img#winner-img { max-width: 450px; width: 100%; height: auto; border-radius: 8px; }
-    #final .trophy { position: absolute; width: 200px; right: 20px; bottom: 20px; }
-    #final .winner-name { font-size: 1.5rem; margin-top: 20px; }
+    #final .winner-name { font-size: 1.5rem; margin-top: 20px; position: relative; display: inline-block; }
+    #final .trophy { display: inline-block; position: relative; width: 1.2rem; vertical-align: middle; margin-left: 0.3rem; }
     #final .congrats { font-size: 0.72rem; font-weight: bold; margin-top: 10px; }
   </style>
 </head>
@@ -32,9 +32,9 @@
   <div id="final">
     <div class="winner-container">
       <img id="winner-img" src="" alt="Winner">
-      <img class="trophy" src="images/trophy.png" alt="Trophy">
     </div>
     <div class="winner-name" id="final-name"></div>
+    <img class="trophy" src="images/trophy.png" alt="Trophy">
     <div class="congrats">축하합니다!</div>
   </div>
 
