@@ -5,43 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fall 25 Styling Contest</title>
   <style>
-    body {
-      font-family: 'Century Gothic', Arial, sans-serif;
-      text-align: center;
-      background-color: #f9f9f9;
-      margin: 0;
-      padding: 20px;
-    }
+    body { font-family: 'Century Gothic', Arial, sans-serif; text-align: center; background-color: #f9f9f9; margin: 0; padding: 20px; }
     h1 { font-size: 1.6rem; margin-bottom: 10px; }
     h2 { font-size: 1.5rem; margin: 20px 0; }
     .match { display: flex; justify-content: center; gap: 40px; }
-    .item {
-      cursor: pointer;
-      background: #fff;
-      padding: 10px;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    }
-    .item img {
-      max-width: 450px; width: 100%; height: auto;
-      display: block; margin: 0 auto; border-radius: 8px;
-    }
-    .item p { margin: 10px 0 0; font-size: 1rem; }
+    .item { cursor: pointer; background: #fff; padding: 10px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+    .item img { max-width: 450px; width: 100%; height: auto; display: block; margin: 0 auto; border-radius: 8px; }
+    .item p { margin: 10px 0 0; font-size: 1rem; font-weight: bold; }
     #final { display: none; text-align: center; margin-top: 40px; position: relative; }
-    #final .winner-container {
-      display: inline-block;
-    }
-    #final img#winner-img {
-      max-width: 450px; width: 100%; height: auto;
-      border-radius: 8px;
-    }
-    #final .trophy {
-      position: absolute;
-      width: 200px;
-      right: 20px;
-      bottom: 20px;
-      transform: none;
-    }
+    #final .winner-container { display: inline-block; }
+    #final img#winner-img { max-width: 450px; width: 100%; height: auto; border-radius: 8px; }
+    #final .trophy { position: absolute; width: 200px; right: 20px; bottom: 20px; }
     #final .winner-name { font-size: 1.5rem; margin-top: 20px; }
     #final .congrats { font-size: 0.72rem; font-weight: bold; margin-top: 10px; }
   </style>
@@ -51,14 +25,8 @@
   <h2 id="match-title">16강 - Match 1</h2>
 
   <div class="match" id="match-container">
-    <div class="item" id="item1">
-      <img src="" alt="A">
-      <p>A</p>
-    </div>
-    <div class="item" id="item2">
-      <img src="" alt="B">
-      <p>B</p>
-    </div>
+    <div class="item" id="item1"><img src="" alt=""><p>A</p></div>
+    <div class="item" id="item2"><img src="" alt=""><p>B</p></div>
   </div>
 
   <div id="final">
@@ -72,82 +40,64 @@
 
   <script>
     const initialItems = [
-      { img: 'images/participant1.png', name: 'A' },
-      { img: 'images/participant2.png', name: 'B' },
-      { img: 'images/participant3.png', name: 'C' },
-      { img: 'images/participant4.png', name: 'D' },
-      { img: 'images/participant5.png', name: 'E' },
-      { img: 'images/participant6.png', name: 'F' },
-      { img: 'images/participant7.png', name: 'G' },
-      { img: 'images/participant8.png', name: 'H' },
-      { img: 'images/participant9.png', name: 'I' },
-      { img: 'images/participant10.png', name: 'J' },
-      { img: 'images/participant11.png', name: 'K' },
-      { img: 'images/participant12.png', name: 'L' },
-      { img: 'images/participant13.png', name: 'M' },
-      { img: 'images/participant14.png', name: 'N' },
-      { img: 'images/participant15.png', name: 'O' },
-      { img: 'images/participant16.png', name: 'P' }
+      { img: 'images/participant1.png', name: 'A' }, { img: 'images/participant2.png', name: 'B' },
+      { img: 'images/participant3.png', name: 'C' }, { img: 'images/participant4.png', name: 'D' },
+      { img: 'images/participant5.png', name: 'E' }, { img: 'images/participant6.png', name: 'F' },
+      { img: 'images/participant7.png', name: 'G' }, { img: 'images/participant8.png', name: 'H' },
+      { img: 'images/participant9.png', name: 'I' }, { img: 'images/participant10.png', name: 'J' },
+      { img: 'images/participant11.png', name: 'K' }, { img: 'images/participant12.png', name: 'L' },
+      { img: 'images/participant13.png', name: 'M' }, { img: 'images/participant14.png', name: 'N' },
+      { img: 'images/participant15.png', name: 'O' }, { img: 'images/participant16.png', name: 'P' }
     ];
 
-    let matches = initialItems.length / 2;  // 16강 (8 matches)
     let items = [...initialItems];
     let nextRound = [];
+    let roundSize = items.length; // 16,8,4,2
     let matchIndex = 0;
 
     const titleEl = document.getElementById('match-title');
-    const img1 = document.querySelector('#item1 img');
-    const img2 = document.querySelector('#item2 img');
-    const name1 = document.querySelector('#item1 p');
-    const name2 = document.querySelector('#item2 p');
+    const imgEls = [document.querySelector('#item1 img'), document.querySelector('#item2 img')];
     const matchContainer = document.getElementById('match-container');
     const finalSection = document.getElementById('final');
     const winnerImg = document.getElementById('winner-img');
     const finalName = document.getElementById('final-name');
 
     function updateTitle() {
-      const labels = { 8: '16강', 4: '8강', 2: '4강', 1: '결승' };
-      titleEl.textContent = `${labels[matches]} - Match ${matchIndex + 1}`;
+      const labels = { 16: '16강', 8: '8강', 4: '4강', 2: '결승' };
+      titleEl.textContent = `${labels[roundSize]} - Match ${matchIndex + 1}`;
     }
 
     function showMatch() {
       updateTitle();
-      if (matches === 1 && matchIndex === 1) {
-        // 결승 1:1 후 우승자 표시
-        matchContainer.style.display = 'none';
-        finalSection.style.display = 'block';
-        winnerImg.src = items[0].img;
-        finalName.textContent = items[0].name + ' 우승!';
-        return;
-      }
-      img1.src = items[matchIndex * 2].img;
-      img2.src = items[matchIndex * 2 + 1].img;
-      name1.textContent = items[matchIndex * 2].name;
-      name2.textContent = items[matchIndex * 2 + 1].name;
+      const a = items[matchIndex*2], b = items[matchIndex*2+1];
+      imgEls[0].src = a.img;
+      imgEls[1].src = b.img;
     }
 
-    function select(winnerItem) {
-      nextRound.push(winnerItem);
+    function select(winner) {
+      if (roundSize === 2) {
+        matchContainer.style.display = 'none';
+        titleEl.style.display = 'none';
+        finalSection.style.display = 'block';
+        winnerImg.src = winner.img;
+        finalName.textContent = `${winner.name} 우승!`;
+        return;
+      }
+      nextRound.push(winner);
       matchIndex++;
-      if (matchIndex >= matches) {
-        items = [...nextRound];
-        nextRound = [];
-        matchIndex = 0;
-        matches = items.length / 2;
+      if (matchIndex >= roundSize/2) {
+        items = [...nextRound]; nextRound = [];
+        roundSize = items.length; matchIndex = 0;
       }
       showMatch();
     }
 
-    document.getElementById('item1')
-      .addEventListener('click', () => select(items[matchIndex * 2]));
-    document.getElementById('item2')
-      .addEventListener('click', () => select(items[matchIndex * 2 + 1]));
+    document.getElementById('item1').addEventListener('click', () => select(items[matchIndex*2]));
+    document.getElementById('item2').addEventListener('click', () => select(items[matchIndex*2+1]));
 
     showMatch();
   </script>
 </body>
 </html>
-
-
 
 
