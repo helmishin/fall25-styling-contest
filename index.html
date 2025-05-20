@@ -90,7 +90,7 @@
       { img: 'images/participant16.png', name: 'P' }
     ];
 
-    let matches = initialItems.length / 2;  // 16강부터 시작 (8 matches)
+    let matches = initialItems.length / 2;  // 16강 (8 matches)
     let items = [...initialItems];
     let nextRound = [];
     let matchIndex = 0;
@@ -111,14 +111,15 @@
     }
 
     function showMatch() {
-      if (matches === 1) {
+      updateTitle();
+      if (matches === 1 && matchIndex === 1) {
+        // 결승 1:1 후 우승자 표시
         matchContainer.style.display = 'none';
         finalSection.style.display = 'block';
         winnerImg.src = items[0].img;
         finalName.textContent = items[0].name + ' 우승!';
         return;
       }
-      updateTitle();
       img1.src = items[matchIndex * 2].img;
       img2.src = items[matchIndex * 2 + 1].img;
       name1.textContent = items[matchIndex * 2].name;
@@ -146,6 +147,5 @@
   </script>
 </body>
 </html>
-
 
 
